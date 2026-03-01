@@ -13,10 +13,11 @@ FRAUD_OK_VALUE = "Not-Fraud"
 REQUIRED_COLS = ["Date", "AdvertiserId", "FraudStatus", "AcquisitionDate", "BilledRev"]
 
 st.set_page_config(page_title="OB Coupon Checker", layout="wide")
-st.title("OB Coupon 申请规则校验（批量 CID）")
+st.title("OB Coupon 申请校验")
 st.caption(
-    "规则：申请日T-2回滚30天统计BilledRev；BilledRev ≥ 面额×3；FraudStatus=Not-Fraud；"
-    "仅自动判定纯新客，非纯新客返回“请手动校验是否为再活跃老客”。"
+    "规则：申请日T-2回滚30天统计BilledRev；BilledRev ≥ 面额×3；
+     FraudStatus=Not-Fraud；"
+    "仅自动判定纯新客，非纯新客返回“请人工校验是否为再活跃老客”。"
 )
 
 # =========================
@@ -220,3 +221,4 @@ if st.button("开始批量验证", type="primary"):
         file_name=f"coupon_validation_{apply_dt.date().isoformat()}_face{face_value}.csv",
         mime="text/csv"
     )
+
