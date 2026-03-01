@@ -15,9 +15,7 @@ REQUIRED_COLS = ["Date", "AdvertiserId", "FraudStatus", "AcquisitionDate", "Bill
 st.set_page_config(page_title="OB Coupon Checker", layout="wide")
 st.title("OB Coupon 申请校验")
 st.caption(
-    "规则：申请日T-2回滚30天统计BilledRev；BilledRev ≥ 面额×3；
-     FraudStatus=Not-Fraud；"
-    "仅自动判定纯新客，非纯新客返回“请人工校验是否为再活跃老客”。"
+    "规则：申请日T-2回滚30天统计BilledRev；BilledRev ≥ 面额×3；FraudStatus=Not-Fraud；"
 )
 
 # =========================
@@ -128,7 +126,7 @@ def evaluate_one(df: pd.DataFrame, adv_id: str, apply_dt: pd.Timestamp, face_val
         ok_customer = True
     else:
         cust_type = "Non-New"
-        cust_detail = "请手动校验是否为再活跃老客"
+        cust_detail = "非本Half新CID,请人工校验是否为再活跃老客"
         ok_customer = False
 
     final_ok = bool(ok_revenue and ok_fraud and ok_customer)
@@ -221,4 +219,3 @@ if st.button("开始批量验证", type="primary"):
         file_name=f"coupon_validation_{apply_dt.date().isoformat()}_face{face_value}.csv",
         mime="text/csv"
     )
-
